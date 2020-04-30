@@ -1,0 +1,123 @@
+﻿@model PlateformeConcours.ViewModel.HomeViewModel
+@{
+    ViewBag.Title = "Accueil";
+}
+
+<div class="intro-section" id="home-section">
+
+    <div class="slide-1" style="background-image: url('images/hero_1.jpg');" data-stellar-background-ratio="0.5">
+        <div class="container">
+
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 mb-4">
+                            <h1 data-aos="fade-up" data-aos-delay="100">
+                                L'inscription est ouverte
+                            </h1>
+                            <p class="mb-4" data-aos="fade-up" data-aos-delay="200">Si vous avez le patient pour devenir ingénieur après 2 ou 3 ans d'études</p>
+                            <p data-aos="fade-up" data-aos-delay="300"><a href="/signup" class="btn btn-primary py-3 px-5 btn-pill">Postulez dès maintenant</a></p>
+
+                        </div>
+
+                        @if (HttpContext.Current.Session["etudiant"] == null)
+                        {
+                            <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
+                                <!--Signin form-->
+                                <form action="/login/auth" method="post" class="form-box">
+                                    @Html.AntiForgeryToken()
+                                    <h3 class="h4 text-black mb-4">Se connecter</h3>
+                                    <div class="form-group">
+                                        <input type="text" value="@Model.Cne" name="Cne" class="form-control" placeholder="CNE">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" value="@Model.Cin" name="Cin" class="form-control" placeholder="CIN">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="Password" class="form-control" placeholder="Mot de passe">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-primary btn-pill" value="Se connecter">
+                                    </div>
+                                    @if (Model.Errors != null && !Model.Errors.IsValid)
+                                    {
+                                        <div style="position:absolute;left:0;width:100%" class="alert alert-danger">
+                                            @foreach (var el in Model.Errors)
+                                            {
+                                                if (el.Value.Errors.Count > 0)
+                                                {
+                                                    <p style="font-size:14px">
+                                                        <strong>@el.Key </strong>
+                                                        <span>@el.Value.Errors[0].ErrorMessage</span>
+                                                    </p>
+                                                }
+
+                                            }
+                                        </div>
+                                    }
+                                    @if (Model.ErrorMessage != null)
+                                    {
+                                        <div style="position:absolute;left:0;width:100%" class="alert alert-danger">
+                                            @Model.ErrorMessage
+                                        </div>
+                                    }
+                                </form>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col">
+                                <div class="row justify-content-center">
+                                    <a href="/login/out" class="btn btn-primary">Se déconnecter</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="site-section courses-title" id="courses-section">
+    <div class="container">
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
+                <h2 class="section-title">Filières</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="site-section courses-entry-wrap" data-aos="fade-up" data-aos-delay="100">
+    <div class="container">
+        <div class="row">
+
+            <div class="owl-carousel col-12 nonloop-block-14">
+                @foreach (var f in Model.Filieres)
+                {
+                    <div class="course bg-white h-100 align-self-stretch">
+                        <figure class="m-0">
+                            <a><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
+                        </figure>
+                        <div class="course-inner-text py-4 px-4">
+                            <p>@f.Titre</p>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+
+
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-7 text-center">
+                <button class="customPrevBtn btn btn-primary m-1">Prev</button>
+                <button class="customNextBtn btn btn-primary m-1">Next</button>
+            </div>
+        </div>
+    </div>
+</div>

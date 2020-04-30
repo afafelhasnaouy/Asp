@@ -1,0 +1,39 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlateformeConcours", "PlateformeConcours\PlateformeConcours.csproj", "{6622FBBB-72EF-46B6-8ACF-4276A0F305B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlateformeConcours.Tests", "PlateformeConcours.Tests\PlateformeConcours.Tests.csproj", "{6A096538-12CD-4ABD-A12E-A5A5C19A36E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6622FBBB-72EF-46B6-8ACF-4276A0F305B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6622FBBB-72EF-46B6-8ACF-4276A0F305B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6622FBBB-72EF-46B6-8ACF-4276A0F305B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6622FBBB-72EF-46B6-8ACF-4276A0F305B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A096538-12CD-4ABD-A12E-A5A5C19A36E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A096538-12CD-4ABD-A12E-A5A5C19A36E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A096538-12CD-4ABD-A12E-A5A5C19A36E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A096538-12CD-4ABD-A12E-A5A5C19A36E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C565DCEC-3D23-4BA1-969B-26804C58BE38}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
+	EndGlobalSection
+EndGlobal
+<Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+</Target>
+
